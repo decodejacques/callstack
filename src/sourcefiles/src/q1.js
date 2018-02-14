@@ -1,8 +1,5 @@
 function foo() {
-    function bar(){
-        console.log("WHAT");
-    }
-    bar();
+    return 10;
 }
 foo();
-// 7 5 r r
+// 4 r
