@@ -1,8 +1,8 @@
+function bar() {
+    return "hello";
+}
 function foo() {
-    function bar(){
-        console.log("q2");
-    }
-    console.log("q2");
+    return bar();
 }
 foo();
 // 7 5 r r

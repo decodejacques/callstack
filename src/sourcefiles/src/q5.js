@@ -9,5 +9,4 @@ function foo() {
 }
 foo();
 foo();
-foo();
-// 4 r 5 r 6 r
+// 10 6 r 7 r r 11 6 r 7 r r

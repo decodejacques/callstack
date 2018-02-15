@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
-import {sourceData, expectedActions} from './sourceData.js'
+import { sourceData, expectedActions } from './sourceData.js'
 
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import { docco } from 'react-syntax-highlighter/styles/hljs';
@@ -76,16 +76,16 @@ class SubApp extends Component {
     this.setState({ callstack: this.state.callstack.concat("call") })
   }
   render() {
+    var prevDisabled = this.props.questionIndex <= 0;
+    var nextDisabled = this.props.questionIndex >= sourceData.length - 1;
     return (<div>
-      <div> {this.props.questionIndex + 1} </div>
+      <div> Question {this.props.questionIndex + 1}
+        <button disabled={prevDisabled} onClick={this.props.prevQuestion}> previous Question </button>
+        <button disabled={nextDisabled} onClick={this.props.nextQuestion}> next Question </button> </div>
       <SyntaxHighlighter showLineNumbers language='javascript' style={docco}>{this.props.codeString}</SyntaxHighlighter>
       <div><button onClick={() => this.props.call(parseInt(this.lineNum.value))}> call </button><input ref={r => this.lineNum = r} type="number" /></div>
       <div><button onClick={this.props.return}> return </button></div>
-      <div> {this.state.callstack.map(x => (<div>{x}</div>))} </div>
       <div> {this.props.callstack.map(x => { return (<div>{x}</div>) })}</div>
-      {this.props.questionIndex < sourceData.length - 1 ? <button onClick={this.props.nextQuestion}> next Question </button> : null}
-      {this.props.questionIndex > 0 ? <button onClick={this.props.prevQuestion}> previous Question </button> : null}
-
     </div>);
   }
 }

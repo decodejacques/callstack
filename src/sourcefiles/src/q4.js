@@ -9,4 +9,4 @@ function foo() {
 foo();
 foo();
 foo();
-// 4 r 5 r 6 r
+// 9 5 r r 10 5 r r 11 5 r r
