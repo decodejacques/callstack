@@ -32,7 +32,7 @@ let reducer = (state, action) => {
     case 'CALL':
       return checkInput(state.callstack.concat(action.lineNumber));
     case 'RETURN':
-      return checkInput(state.callstack.slice(0, -1))
+      return checkInput(state.callstack.slice(1))
     case 'NEXTQUESTION':
 
       return makeState(state.questionIndex + 1)
@@ -47,9 +47,7 @@ let reducer = (state, action) => {
 
 const store = createStore(reducer,
   { callstack: [], expected: expected[0], questionIndex: 0, codeString: sourceData[0] },
-  window.__REDUX_DEVTOOLS_EXTENSION__()
-
-);
+  window.__REDUX_DEVTOOLS_EXTENSION__());
 
 const mapStateToProps = (state) => state
 
@@ -75,6 +73,11 @@ class SubApp extends Component {
   clickCall = () => {
     this.setState({ callstack: this.state.callstack.concat("call") })
   }
+
+  callClicked = () => {
+    this.props.call(parseInt(this.lineNum.value));
+    this.lineNum.value = "";
+  }
   render() {
     var prevDisabled = this.props.questionIndex <= 0;
     var nextDisabled = this.props.questionIndex >= sourceData.length - 1;
@@ -82,10 +85,18 @@ class SubApp extends Component {
       <div> Question {this.props.questionIndex + 1}
         <button disabled={prevDisabled} onClick={this.props.prevQuestion}> previous Question </button>
         <button disabled={nextDisabled} onClick={this.props.nextQuestion}> next Question </button> </div>
-      <SyntaxHighlighter showLineNumbers language='javascript' style={docco}>{this.props.codeString}</SyntaxHighlighter>
-      <div><button onClick={() => this.props.call(parseInt(this.lineNum.value))}> call </button><input ref={r => this.lineNum = r} type="number" /></div>
+      <div className="code-stack">
+        <div style={{ "width": "20em" }}>
+          <SyntaxHighlighter showLineNumbers language='javascript' style={docco}>{this.props.codeString}</SyntaxHighlighter>
+        </div>
+        <div className='stack-div'>
+          <div className='stack-inner-div'> {this.props.done ? "finished" : this.props.callstack.reverse().map(x => { return (<div>{x}</div>) })}</div>
+        </div>
+      </div>
+
+      <div><button onClick={this.callClicked}> call </button><input ref={r => this.lineNum = r} type="number" /></div>
       <div><button onClick={this.props.return}> return </button></div>
-      <div> {this.props.callstack.map(x => { return (<div>{x}</div>) })}</div>
+
     </div>);
   }
 }

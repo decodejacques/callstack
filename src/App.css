@@ -26,3 +26,20 @@
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+
+.stack-div {
+  width: 2em;
+  position: relative;
+  height: 6em;
+}
+
+.stack-inner-div {
+ position: absolute;
+ bottom: 1em;
+ left: 3em;
+}
+
+.code-stack {
+  display: flex;
+  width: 100%;
+}

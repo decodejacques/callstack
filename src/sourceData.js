@@ -1,12 +1,12 @@
-let expectedActions = [[4,"ret"],[7,5,"ret","ret"],[4,"ret",5,"ret",6,"ret"],[4,"ret",5,"ret",6,"ret"],[4,"ret",5,"ret",6,"ret"],[15,11,6,"ret","ret",12,"ret","ret"],[13,9,"ret",10,"ret","ret"]];
+let expectedActions = [[4,"ret"],[7,5,"ret","ret"],[4,"ret",5,"ret",6,"ret"],[9,5,"ret",6,"ret","ret",10,5,"ret",6,"ret","ret"],[15,11,6,"ret","ret",12,"ret","ret"],[13,9,"ret",10,"ret","ret"]];
 let sourceData = [`function foo() {
     return 10;
 }
-foo();`,`function foo() {
-    function bar(){
-        console.log("q2");
-    }
-    console.log("q2");
+foo();`,`function bar() {
+    return "hello";
+}
+function foo() {
+    return bar();
 }
 foo();`,`function foo() {
     return true;
@@ -18,21 +18,9 @@ foo();`,`function bar() {
 }
 function foo() {
     var x = bar();
-    if(x == "hello") true;
+    if(x == "hello") return bar();
     return false;
 }
-foo();
-foo();
-foo();`,`function bar() {
-    console.log("running bar");
-    return "hello";
-}
-function foo() {
-    var x = bar();
-    if(x == "hello") bar();
-    return false;
-}
-foo();
 foo();
 foo();`,`function baz() {
     console.log("running bar");

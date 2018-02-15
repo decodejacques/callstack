@@ -1,11 +1,9 @@
 function baz() {
-    console.log("running bar");
-    return "hello";
+    console.log("running baz");
+    // there is no return statement in this function
 }
 function bar() {
-    baz();
     console.log("running bar");
-    return "hello";
 }
 function foo() {
     bar();
@@ -13,4 +11,4 @@ function foo() {
     return true;
 }
 foo();
-// 15 11 6 r r 12 r r
+// 13 9 r 10 r r

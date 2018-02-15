@@ -1,12 +1,16 @@
+function baz() {
+    console.log("running bar");
+    return "hello";
+}
 function bar() {
+    baz();
     console.log("running bar");
     return "hello";
 }
 function foo() {
-    var x = bar();
-    if(x == "hello") bar();
-    return false;
+    bar();
+    baz();
+    return true;
 }
 foo();
-foo();
-// 10 6 r 7 r r 11 6 r 7 r r
+// 15 11 6 r r 12 r r
