@@ -44,10 +44,11 @@ let reducer = (state, action) => {
   }
 }
 
-
+var extension = window.__REDUX_DEVTOOLS_EXTENSION__;
+extension = extension ? extension() : undefined;
 const store = createStore(reducer,
   { callstack: [], expected: expected[0], questionIndex: 0, codeString: sourceData[0] },
-  window.__REDUX_DEVTOOLS_EXTENSION__());
+  extension);
 
 const mapStateToProps = (state) => state
 
